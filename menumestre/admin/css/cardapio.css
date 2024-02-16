@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+/* font-family: 'Dancing Script', cursive; */
+:root {
+    --fundo: #121212;
+    --white: #fffcf9;
+    --green: rgb(26, 201, 26);
+    --orange: #ff850a;
+    --gray: #aeaeae;
+  }
+
+  *{
+    box-sizing: border-box;
+  }
+.container{
+    position: relative;
+}
+.filtro-btn{
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    position: fixed;
+    right: 50px;
+}
+.filtro-btn button{
+    color: var(--fundo);
+    font-weight: 500;
+    width: 120px;
+    height: 120px;
+    border-radius: 9999px;
+    font-size: 1rem;
+    cursor: pointer; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.filtro-ativo{
+    background-color: var(--fundo);
+    font-weight: 500;
+    border: solid 4px var(--fundo);
+}
+.filtro-ativo i{
+    color: var(--white);
+}
+.filtro-ativo span{
+    color: var(--white);
+}
+.filtro-btn i{
+    font-size: 2rem;
+}
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+}
+
+.card{
+    width: 300px;
+    height: 400px;
+    box-sizing: border-box;  
+    border-radius: 20px;
+    position: relative;
+}
+
+.card-edit{
+    background-color: #ffffff02;
+    width: 300px;
+    height: 400px;
+    border: dashed 2px var(--fundo);  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-edit div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.card-edit a{
+    text-decoration: none;
+    color: var(--fundo);
+}
+.card-edit span{
+    font-size: 5rem;
+}
+.card-edit span:nth-child(2){
+    font-size: 1.2rem;
+}
+.card-edit:hover{
+    background-color: #b4b4ad3f;
+    cursor: pointer;
+}
+
+.card-show {
+    display: flex;
+    flex-direction: column;   
+    background-color: var(--white);
+}
+.card-info{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-grow: 1;
+}
+.card-show .card-info img{
+    width: 110px;
+    height: 110px;
+    border-radius: 9999px;
+    align-self: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+.card-show h3{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--fundo);
+}
+.card-show p{
+    font-size: 0.8rem;
+    color: var(--gray);
+    font-weight: 300;
+    height: 40px;
+}
+.card-show span{ 
+    margin-top: 15px;
+}
+.card-price{
+    color: var(--green);  
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+a{
+    text-decoration: none;
+}
+.card-edit-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.9;
+    cursor: pointer;
+    background-color:  var(--fundo);
+    border-radius: 0px 0px 20px 20px;
+    width: 100%;
+    min-height: 55px;
+    max-height: 55px;
+}
+.card-edit-btn span{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+    font-weight: 300;
+    
+}
+.card-edit-btn:hover{
+    opacity: 1;
+}
+
+.card-new-item{
+    top: 0;
+    border: solid 3px #17da52;
+    border-radius: 15px;
+    position: absolute;
+    font-size: 1rem;
+    color: #17da52;
+    font-weight: 500;
+    padding: 4px;
+    width: 90px;
+    text-align: center;
+}
+.card-ativo-btn{
+    top: 0;
+    right: 0;
+    border-radius: 15px;
+    position: absolute;
+    font-size: 2rem;
+    color: #5d606d;
+    font-weight: 100;
+    padding: 4px;
+    width: 90px;
+    text-align: center;
+
+}
+.card-desativado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: black;
+    border-radius: 20px;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+}
+.card-desativado a{
+    color: #fffcf9;
+    font-size: 4rem;
+}
+.card-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+.card-button button{
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+    width: 250px;
+    background-color: var(--orange);
+    cursor: pointer;
+    opacity: 0.9;
+}
+.card-button button:hover{
+    opacity: 1;
+}
+.card-button span{
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+}
