@@ -95,7 +95,7 @@
         Swal.fire({
             icon: 'error',
             title: 'Acesso Negado!',
-            text: 'Você não tem permissão para acessar esta página como Chef de Cozinha.',
+            text: 'Você não tem permissão para acessar esta página como Atendente.',
         });
     }
 

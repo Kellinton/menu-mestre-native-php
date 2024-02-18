@@ -58,7 +58,7 @@
                     </div>
                     <div class="perfil-title">
                         <span class="perfil-nome"><?php echo $dadosFuncionario['nomeFuncionario']?></span> 
-                        <span class="perfil-cargo"><?php echo ($dadosFuncionario['especialidadeFuncionario']) === 'Gerente' ? 'Gerente' : 'Chef de Cozinha'?></span>
+                        <span class="perfil-cargo"><?php echo ($dadosFuncionario['especialidadeFuncionario']) === 'Gerente' ? 'Gerente' : 'Atendente'?></span>
                     </div>
                 </div>
                 <form class="login" action="logout.php" method="POST">                 
@@ -70,11 +70,11 @@
             <div class="navbar">
                 <ul> 
 
-                    <li><a href="index.php?p=home"><span class="nav-icon"><i class="ri-home-3-line"></i></span><span class="nav-title">Dashboard</span></a></li>
-                    <li><a href="index.php?p=pedido"><span class="nav-icon"><i class="ri-notification-3-line"></i></span><span class="nav-title">Pedidos</span></a></li>                  
+                    <li><a href="index.php?p=home"><span class="nav-icon"><i class="ri-community-fill"></i></span><span class="nav-title">Home</span></a></li>
+                    <li><a href="index.php?p=mesa"><span class="nav-icon"><i class="ri-calendar-todo-fill"></i></span><span class="nav-title">Mesas</span></a></li>                  
                                     
-                    <!-- Verificação se é Gerente ou Chef de Cozinha -->
-                    <?php if ($dadosFuncionario['especialidadeFuncionario'] === 'Chef de Cozinha') : ?>
+                    <!-- Verificação se é Gerente ou Atendente -->
+                    <?php if ($dadosFuncionario['especialidadeFuncionario'] === 'Atendente') : ?>
                         <li class="acesso-negado" >
                             <a href="#" onclick="acessoNegado(); return false;">
                                 <span class="nav-icon"><i class="ri-restaurant-line"></i></span>
@@ -112,9 +112,11 @@
                     break;
                 case 'cardapio':
                     require_once('cardapio/cardapio.php');
-                    
+                    break;
+                case 'mesa':
+                    require_once('mesa/mesa.php');
+                    break;
                 default:
-
                     break;
             }
 

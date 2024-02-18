@@ -7,7 +7,20 @@ require_once('class/home.php');
 $listaFuncionario = new FuncionarioClass();
 $listarF = $listaFuncionario->ListarFuncionarios();
 
+//Estatísticas Itens
+$listaItens = new ItensClass();
+$listarI = $listaItens->listarItens();
+
+//Estatísticas Vendas Totais
+$listaTotalVendas = new VendasClass();
+$listarTV = $listaTotalVendas->listarTotalVendas();
+
+//Pratos mais pedidos
+$listaPrato = new PratosClass();
+$listarP = $listaPrato->Listar();
 ?>
+
+
 
 <!-- Inclui os estilos CSS -->
 <link rel="stylesheet" href="css/dashboard.css">
@@ -46,21 +59,10 @@ $listarF = $listaFuncionario->ListarFuncionarios();
                     <i class="ri-file-list-3-fill" style="color: rgb(45, 169, 226);"></i>
                 </div>
             </div>
-            <!-- Estatísticas de vendas -->
-            <div class="estatisticas">
-                <div class="estatisticas-info">
-                    <h4>15</h4>
-                    <span>Vendas</span>
-                    <p>Vendas feitas.</p>
-                </div>
-                <div class="estatisticas-icon" style="background-color: rgba(61, 236, 38, 0.568);">
-                    <i class="ri-money-dollar-circle-fill" style="color: rgb(61, 236, 38);"></i>
-                </div>
-            </div>
             <!-- Estatísticas de funcionários -->
             <div class="estatisticas">
                 <div class="estatisticas-info">
-                    <h4>4</h4>
+                    <h4><?php echo $listarF['numeroFuncionarios']?></h4>
                     <span>Funcionários</span>
                     <p>Funcionários registrados.</p>
                 </div>
@@ -68,16 +70,27 @@ $listarF = $listaFuncionario->ListarFuncionarios();
                     <i class="ri-user-2-fill" style="color: rgb(179, 8, 8);"></i>
                 </div>
             </div>
+            <!-- Estatísticas de vendas -->
+            <div class="estatisticas">
+                <div class="estatisticas-info">
+                    <h4>$<?php echo $listarTV['totalVendas']?></h4>
+                    <span>Vendas Totais</span>
+                    <p>Vendas totais realizadas.</p>
+                </div>
+                <div class="estatisticas-icon" style="background-color: rgba(61, 236, 38, 0.568);">
+                    <i class="ri-money-dollar-circle-fill" style="color: rgb(61, 236, 38);"></i>
+                </div>
+            </div>
             <!-- Estatísticas de pratos -->
             <div class="estatisticas">
                 <div class="estatisticas-info">
-                    <h4>310</h4>
+                    <h4><?php echo $listarI['numeroItens']?></h4>
                     <span>Pratos</span>
-                    <p>Itens registrados no cardápio.</p>
+                    <p>Itens registrados.</p>
                     
                 </div>
-                <!-- Condição que verifica se o funcionário é Chef de Cozinha -->
-                <?php if ($dadosFuncionario['especialidadeFuncionario'] === 'Chef de Cozinha') : ?>
+                <!-- Condição que verifica se o funcionário é Atendente -->
+                <?php if ($dadosFuncionario['especialidadeFuncionario'] === 'Atendente') : ?>
                     <!-- Se for, exibe o link de acesso negado -->
                     <a href="#" class="link-lock" onclick="acessoNegado(); return false;">Acessar <span class="lock"><i class="ri-lock-line"></i></span></a>
                 <?php else : ?>
@@ -87,20 +100,48 @@ $listarF = $listaFuncionario->ListarFuncionarios();
             </div>
         </div>
     </div>
-    <!-- Container dos pedidos (aqui você pode adicionar conteúdo relacionado aos pedidos, se necessário) -->
-    <div class="home-pedidos">
-        <div class="teste2">
+    <!-- Container dos pedidos (aqui você pode adicionar conteúdo relacionado aos pratos, se necessário) -->
+    <div class="home-pratos">
+        <div class="pratos-container">
+            <div class="pratos-info">
+                <div>
+                    <h2>Pratos mais pedidos</h2>
+                    <p>Visualizar pratos mais pedidos</p>
+                </div>
+                <div class="pratos-filtro">
+                    <button id="filtro-btn-mensal" class="filtro-ativo-prato" onclick="filtrar('todos')" title="Todos">
+    
+                      <span>Mensal</span>
+                    </button>
+                    <button id="filtro-btn-semanal" onclick="filtrar('comida')" title="Comida">
 
+                         <span>Semanal</span>
+                     </button>
+                    <button id="filtro-btn-diario" onclick="filtrar('bebida')" title="Bebida">
+
+                        <span>Diário</span>
+                    </button>
+                </div>
+           </div>
+           <div class="pratos-lista">
+           <?php foreach($listarP as $linha):?>
+              <div class="pratos-elemento">
+                <div class="pratos-elemento-info">
+                    <div>
+                    <?php echo '<img src="./img/produtos/'. $linha['categoriaProduto'] .'/'. $linha['fotoProduto'] . '">' ?>
+                    </div>
+                    <div>
+                        <h4><?php echo $linha['nomeProduto']?></h4>
+                        <p><?php echo $linha['descricaoProduto']?></p>
+                        <span>Pedido por <?php echo $linha['totalPedidos']?> clientes.</span>
+                    </div>
+                </div>
+                <div class="pratos-elemento-price">
+                    <span>R$<?php echo $linha['valorProduto']?></span>
+                </div>
+              </div>
+            <?php endforeach?>
+           </div>
         </div>
     </div>
-  
-    <!-- <div class="user-container">
-        <div class="home.top">
-        </div>
-        <div class="home.stats">
-            <div class="funcionarios.stats">Func</div>
-            <div class="produtos.stats">Prod</div>
-            <div class="vendas.stats">Venda</div>
-        </div> 
-    </div> -->
 </div>
