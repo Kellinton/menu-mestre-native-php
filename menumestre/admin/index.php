@@ -117,6 +117,7 @@
                     require_once('mesa/mesa.php');
                     break;
                 default:
+                    require_once('home/home.php');
                     break;
             }
 

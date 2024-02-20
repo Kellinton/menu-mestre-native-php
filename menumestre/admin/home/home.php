@@ -81,32 +81,43 @@ $listarP = $listaPrato->Listar();
                     <i class="ri-money-dollar-circle-fill" style="color: rgb(61, 236, 38);"></i>
                 </div>
             </div>
+            <!-- Estatísticas de mesas -->
+            <div class="estatisticas">
+                <img src="img/icones/mesa.png" alt="">
+                <div class="estatisticas-info">
+                    <h4>??</h4>
+                    <span>Mesas</span>
+                    <p>Mesas disponíveis.</p>
+                    <a href="index.php?p=cardapio">Acessar</a>
+                    
+                </div>
+            </div>
             <!-- Estatísticas de pratos -->
             <div class="estatisticas">
+                <img src="img/icones/burguer.png" alt="">
                 <div class="estatisticas-info">
                     <h4><?php echo $listarI['numeroItens']?></h4>
                     <span>Pratos</span>
-                    <p>Itens registrados.</p>
-                    
-                </div>
-                <!-- Condição que verifica se o funcionário é Atendente -->
-                <?php if ($dadosFuncionario['especialidadeFuncionario'] === 'Atendente') : ?>
-                    <!-- Se for, exibe o link de acesso negado -->
-                    <a href="#" class="link-lock" onclick="acessoNegado(); return false;">Acessar <span class="lock"><i class="ri-lock-line"></i></span></a>
-                <?php else : ?>
-                    <!-- Se não for, exibe o link para acessar o cardápio -->
-                    <a href="index.php?p=cardapio">Acessar</a>
-                <?php endif; ?>
+                    <p>Itens registrados.</p>             
+                    <?php if ($dadosFuncionario['especialidadeFuncionario'] === 'Atendente') : ?>
+                        <!-- Se for, exibe o link de acesso negado -->
+                        <a href="#" class="link-lock" onclick="acessoNegado(); return false;">Acessar <span class="lock"><i class="ri-lock-line"></i></span></a>
+                    <?php else : ?>
+                        <!-- Se não for, exibe o link para acessar o cardápio -->
+                        <a href="index.php?p=cardapio">Acessar</a>
+                    <?php endif; ?>
+                </div>                <!-- Condição que verifica se o funcionário é Atendente -->
             </div>
         </div>
     </div>
-    <!-- Container dos pedidos (aqui você pode adicionar conteúdo relacionado aos pratos, se necessário) -->
+    
+    <!-- Container dos pratos mais pedidos  -->
     <div class="home-pratos">
         <div class="pratos-container">
             <div class="pratos-info">
                 <div>
-                    <h2>Pratos mais pedidos</h2>
-                    <p>Visualizar pratos mais pedidos</p>
+                    <h2>Mais pedidos</h2>
+                    <p>Os pratos mais pedidos.</p>
                 </div>
                 <div class="pratos-filtro">
                     <button id="filtro-btn-mensal" class="filtro-ativo-prato" onclick="filtrar('todos')" title="Todos">
@@ -123,25 +134,48 @@ $listarP = $listaPrato->Listar();
                     </button>
                 </div>
            </div>
+
            <div class="pratos-lista">
-           <?php foreach($listarP as $linha):?>
-              <div class="pratos-elemento">
-                <div class="pratos-elemento-info">
-                    <div>
-                    <?php echo '<img src="./img/produtos/'. $linha['categoriaProduto'] .'/'. $linha['fotoProduto'] . '">' ?>
+            <?php
+                $contador = 0;
+                foreach($listarP as $linha):
+                    if ($contador < 6): // Exibir apenas os 6 primeiros pratos
+                        // Determinar a cor com base na categoria
+                        $cor = '';
+                        switch ($linha['categoriaProduto']) {
+                            case 'comida':
+                                $cor = '#dbd70096'; 
+                                break;
+                            case 'bebida':
+                                $cor = '#009ddb96'; 
+                                break;
+                            case 'sobremesa':
+                                $cor = '#db000096';
+                                break;
+                            default:
+                                $cor = 'rgba(0, 0, 0, 0.5)'; // Preto como padrão
+                        }
+                ?>
+                <div class="pratos-elemento">
+                    <div class="pratos-elemento-info" style="background-color: <?php echo $cor; ?>">
+                        <div class="categoria-<?php echo $linha['categoriaProduto']; ?>" style="background-color: <?php echo $cor; ?>">
+                            <?php echo '<img src="./img/produtos/'. $linha['categoriaProduto'] .'/'. $linha['fotoProduto'] . '">' ?>
+                        </div>
+                        <div>
+                            <h4><?php echo $linha['nomeProduto']?></h4>
+                            <p><?php echo $linha['descricaoProduto']?></p>
+                            <span>Pedido por <?php echo $linha['totalPedidos']?> clientes.</span>
+                        </div>
                     </div>
-                    <div>
-                        <h4><?php echo $linha['nomeProduto']?></h4>
-                        <p><?php echo $linha['descricaoProduto']?></p>
-                        <span>Pedido por <?php echo $linha['totalPedidos']?> clientes.</span>
+                    <div class="pratos-elemento-price">
+                        <span>R$<?php echo $linha['valorProduto']?></span>
                     </div>
                 </div>
-                <div class="pratos-elemento-price">
-                    <span>R$<?php echo $linha['valorProduto']?></span>
-                </div>
-              </div>
-            <?php endforeach?>
-           </div>
-        </div>
+                <?php
+                    endif;
+                    $contador++;
+                endforeach;
+                ?>
+            </div>
     </div>
 </div>
