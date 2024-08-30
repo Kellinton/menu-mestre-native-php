@@ -20,23 +20,28 @@ class Login{
     //MÉTODOS
 
     public function VerificarLogin(){
-
-        if(isset($this->emailFuncionario)){
-            $query = "SELECT * FROM tblfuncionarios WHERE emailFuncionario = '".$this->emailFuncionario."' AND senhaFuncionario = '".$this->senhaFuncionario."'";
-        }else{
-            if(isset($this->idFuncionario)){
-                $query = "SELECT * FROM tblfuncionarios WHERE idFuncionario = ".$this->idFuncionario;
-            }
-        }
-
-        // $query = "SELECT * FROM tblFuncionario WHERE emailFuncionario = '".$this->emailUsuario."' AND senhaUsuario = '".$this->senhaUsuario."'";
-
         $conn = Conexao::LigarConexao();
-        $resultado = $conn->query($query);
-        $lista = $resultado->fetch(PDO::FETCH_ASSOC);
-
+        $query = "";
+        $params = [];
+    
+        if (isset($this->emailFuncionario)) {
+            $query = "SELECT * FROM tblfuncionarios WHERE emailFuncionario = :emailFuncionario AND senhaFuncionario = :senhaFuncionario";
+            $params = [
+                ':emailFuncionario' => $this->emailFuncionario,
+                ':senhaFuncionario' => $this->senhaFuncionario,
+            ];
+        } else if (isset($this->idFuncionario)) {
+            $query = "SELECT * FROM tblfuncionarios WHERE idFuncionario = :idFuncionario";
+            $params = [
+                ':idFuncionario' => $this->idFuncionario,
+            ];
+        }
+    
+        $stmt = $conn->prepare($query);
+        $stmt->execute($params);
+        $lista = $stmt->fetch(PDO::FETCH_ASSOC);
+    
         return $lista;
-
     }
 
 
